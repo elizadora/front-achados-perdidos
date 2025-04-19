@@ -1,9 +1,9 @@
-import Home from './pages/Home';
+import LoginForm from "./pages/LoginUser"
 
 function App() {
   return (
     <>
-      <Home />
+      <LoginForm />
     </>
   )
 }
