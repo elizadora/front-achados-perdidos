@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ModalDetalhes from '../components/ModalDetalhes'; // Importando o ModalDetalhes
-import axios from 'axios'; 
+import axios from 'axios';
 
 const ItensRecentes = () => {
   const [itens, setItens] = useState([]);
@@ -28,22 +28,13 @@ const ItensRecentes = () => {
     setSelectedItem(null);
   };
 
-  const StatusBadge = ({ status }) => {
-    const base = 'px-2 py-1 text-xs font-semibold rounded-full';
-    const styles = status === 'Achado'
-      ? `${base} bg-green-100 text-green-800`
-      : `${base} bg-yellow-100 text-yellow-800`;
-
-    return <span className={styles}>{status}</span>;
-  };
-
   return (
     <section className="px-6 py-10">
       <h2 className="text-xl font-bold text-gray-900 mb-6">Itens recentes</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {itens.map((item, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className="bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer"
             onClick={() => openModal(item)}
           >
@@ -57,7 +48,7 @@ const ItensRecentes = () => {
               <p className="text-sm text-gray-500">{item.categoria}</p>
               <p className="text-sm text-gray-500">Local: {item.local}</p>
               <p className="text-sm text-gray-500 mb-2">Data: {new Date(item.data).toLocaleDateString()}</p>
-              <StatusBadge status={item.status} />
+              {/* Removido o StatusBadge daqui, já que ele será exibido no ModalDetalhes */}
             </div>
           </div>
         ))}

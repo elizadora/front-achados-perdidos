@@ -2,7 +2,7 @@ import React from 'react';
 import StatusBadge from './StatusBadge';
 
 const ModalDetalhes = ({ item, onClose }) => {
-  if (!item) return null;
+  if (!item) return null; // Se não houver item, o modal não será exibido
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
@@ -21,12 +21,24 @@ const ModalDetalhes = ({ item, onClose }) => {
           alt={item.nome}
           className="w-full h-48 object-cover rounded-lg mb-4"
         />
-        <p><strong>Status:</strong> <StatusBadge status={item.status} /></p>
-        <p><strong>Categoria:</strong> {item.categoria}</p>
-        <p><strong>Local:</strong> {item.local}</p>
-        <p><strong>Data:</strong> {item.data}</p>
-        <p><strong>Descrição:</strong> {item.descricao}</p>
         
+        <div className="mb-4">
+          <p><strong>Status:</strong> <StatusBadge status={item.status} /></p>
+          <p><strong>Categoria:</strong> {item.categoria}</p>
+          <p><strong>Local:</strong> {item.local}</p>
+          <p><strong>Data:</strong> {item.data}</p>
+          <p><strong>Descrição:</strong> {item.descricao}</p>
+        </div>
+
+        {/* Caso precise de mais informações, pode adicionar aqui, como um botão ou link */}
+        <div className="text-center mt-4">
+          <button
+            onClick={onClose}
+            className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
+          >
+            Fechar
+          </button>
+        </div>
       </div>
     </div>
   );
