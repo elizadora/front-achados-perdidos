@@ -1,61 +1,24 @@
-// ItensRecentes.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ModalDetalhes from '../components/ModalDetalhes'; // Importando o ModalDetalhes
-import carteiraImg from '../assets/imagens/carteira.png';
-import chavesImg from '../assets/imagens/chaves.png';
-import fonesImg from '../assets/imagens/fones.png';
-import jaquetaImg from '../assets/imagens/jaqueta.png';
-
-const itens = [
-  {
-    nome: 'Carteira marrom',
-    categoria: 'Objetos Pessoais',
-    local: 'Parque',
-    data: '22/05/2025',
-    status: 'Achado',
-    imagem: carteiraImg,
-    descricao: 'Tamanho pequeno, com detalhes em couro.'
-  },
-  {
-    nome: 'Chaves',
-    categoria: 'Chaves',
-    local: 'UFC',
-    data: '30/05/2025',
-    status: 'Perdida',
-    imagem: chavesImg,
-    descricao: 'Chaves de carro, com chaveiro azul.'
-  },
-  {
-    nome: 'Fones de ouvido',
-    categoria: 'Eletrônicos',
-    local: 'Cantina',
-    data: '17/04/2025',
-    status: 'Achado',
-    imagem: fonesImg,
-    descricao: 'Fones sem fio, cor preta.'
-  },
-  {
-    nome: 'Jaqueta jeans',
-    categoria: 'Roupas',
-    local: 'Americanas',
-    data: '01/04/2025',
-    status: 'Perdida',
-    imagem: jaquetaImg,
-    descricao: 'Jaqueta de jeans, tamanho médio.'
-  },
-];
-
-const StatusBadge = ({ status }) => {
-  const base = 'px-2 py-1 text-xs font-semibold rounded-full';
-  const styles = status === 'Achado'
-    ? `${base} bg-green-100 text-green-800`
-    : `${base} bg-yellow-100 text-yellow-800`;
-
-  return <span className={styles}>{status}</span>;
-};
+import axios from 'axios'; 
 
 const ItensRecentes = () => {
+  const [itens, setItens] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  // Fazer requisição para obter itens do back-end
+  useEffect(() => {
+    const fetchItens = async () => {
+      try {
+        const response = await axios.get('/api/itens'); // Endpoint da API para obter itens
+        setItens(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar itens:', error);
+      }
+    };
+
+    fetchItens();
+  }, []);
 
   const openModal = (item) => {
     setSelectedItem(item);
@@ -63,6 +26,15 @@ const ItensRecentes = () => {
 
   const closeModal = () => {
     setSelectedItem(null);
+  };
+
+  const StatusBadge = ({ status }) => {
+    const base = 'px-2 py-1 text-xs font-semibold rounded-full';
+    const styles = status === 'Achado'
+      ? `${base} bg-green-100 text-green-800`
+      : `${base} bg-yellow-100 text-yellow-800`;
+
+    return <span className={styles}>{status}</span>;
   };
 
   return (
@@ -76,7 +48,7 @@ const ItensRecentes = () => {
             onClick={() => openModal(item)}
           >
             <img
-              src={item.imagem}
+              src={item.foto} // Usando a foto do item vindo da API
               alt={item.nome}
               className="w-full h-40 object-cover rounded-t-lg transition duration-300 hover:grayscale"
             />
@@ -84,7 +56,7 @@ const ItensRecentes = () => {
               <h3 className="font-semibold text-gray-800">{item.nome}</h3>
               <p className="text-sm text-gray-500">{item.categoria}</p>
               <p className="text-sm text-gray-500">Local: {item.local}</p>
-              <p className="text-sm text-gray-500 mb-2">Data: {item.data}</p>
+              <p className="text-sm text-gray-500 mb-2">Data: {new Date(item.data).toLocaleDateString()}</p>
               <StatusBadge status={item.status} />
             </div>
           </div>
