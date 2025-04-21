@@ -1,8 +1,50 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Paper } from "@mui/material";
+import { useContext, useState } from "react";
+import { login } from "../services/loginService";
+import { AuthContext } from "../context/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 
 export default function LoginForm() {
+
+    const [user, setUser] = useState({
+        email: "",
+        password: "",
+    });
+
+    const [error, setError] = useState("");
+
+    // const {sign} = useContext(AuthContext);
+    // const navigate = useNavigate();
+
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setError("");
+
+        try{
+            const data = {
+                email: user.email,
+                senha: user.password
+            }
+
+            const res = await login(data);
+            if(res.success !== true){
+                setError(res.message);
+            }
+
+            // sign(res);
+            // navigate("/home");
+
+            
+        }catch(error){
+            setError("Credenciais invalidas");
+        }
+
+
+    }
+
     return (
         <div className="flex justify-center items-center bg-[#f3f3f3] min-h-screen">
             <Paper elevation={2} className="flex md:w-[50%] md:h-[90vh] h-[90%] w-[80%] bg-[#FFF7F7] md:flex-row flex-col">
@@ -14,24 +56,31 @@ export default function LoginForm() {
                         <h3 className="font-bold text-4xl md:text-left text-center">Login</h3>
                         <p className="text-[#8A8A8A] mt-1 text-[14px] md:text-left text-center">Bem-vindo de volta! Por favor, faça login na sua conta.</p>
 
-                        <div className="flex flex-col gap-2 mt-8">
+                        <form onSubmit={handleLogin} className="flex flex-col gap-2 mt-8">
+                            {error && (
+                                <span className="text-red-500 text-sm">{error}</span>
+                            )}
+
                             <div className="flex flex-col gap-1">
                                 <label className="text-[#8A8A8A] font-medium text-[14px]">Email</label>
-                                <input type="email" className="w-full h-[30px] border border-[#D9D9D9] rounded-[4px] px-2" />
+
+                                <input value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })}
+                                    type="email" className="w-full h-[30px] border border-[#D9D9D9] rounded-[4px] px-2" />
                             </div>
                             <div className="flex flex-col gap-1">
                                 <label className="text-[#8A8A8A] font-medium text-[14px]">Senha</label>
-                                <input type="password" className="w-full h-[30px] border border-[#D9D9D9] rounded-[4px] px-2" />
+
+                                <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })}
+                                    type="password" className="w-full h-[30px] border border-[#D9D9D9] rounded-[4px] px-2" />
 
                             </div>
-                            <button className="bg-[#0028DF] hover:bg-[#0024C9] text-white font-bold text-[14px] h-[40px] rounded-[4px] mt-5 cursor-pointer">Login</button>
+                            <button type="submit" className="bg-[#0028DF] hover:bg-[#0024C9] text-white font-bold text-[14px] h-[40px] rounded-[4px] mt-5 cursor-pointer">Login</button>
                             <p className="text-[#8A8A8A] mt-1 text-[14px] md:mb-3 mb-9 md:text-left text-center">Usuário novo? <a href="/login" className="text-[#0028DF] font-bold">Cadastre-se</a></p>
 
-                        </div>
+                        </form>
                     </div>
                 </div>
             </Paper>
-
         </div>
     );
 }

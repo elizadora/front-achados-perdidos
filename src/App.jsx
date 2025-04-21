@@ -4,7 +4,7 @@ import RegisterForm from "./pages/RegisterUser"
 function App() {
   return (
     <>
-      <RegisterForm />
+      <LoginForm />
     </>
   )
 }
