@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import ModalDetalhes from '../components/ModalDetalhes'; // Importando o ModalDetalhes
-import axios from 'axios';
+import ModalDetalhes from '../components/ModalDetalhes';
+import itemService from '../services/itemService';
 
 const ItensRecentes = () => {
   const [itens, setItens] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // Fazer requisição para obter itens do back-end
   useEffect(() => {
     const fetchItens = async () => {
       try {
-        const response = await axios.get('/api/itens'); // Endpoint da API para obter itens
+        const response = await itemService.getAllItems();
         setItens(response.data);
       } catch (error) {
         console.error('Erro ao buscar itens:', error);
@@ -39,16 +38,20 @@ const ItensRecentes = () => {
             onClick={() => openModal(item)}
           >
             <img
-              src={item.foto} // Usando a foto do item vindo da API
+              src={item.foto}
               alt={item.nome}
               className="w-full h-40 object-cover rounded-t-lg transition duration-300 hover:grayscale"
             />
             <div className="p-4">
               <h3 className="font-semibold text-gray-800">{item.nome}</h3>
-              <p className="text-sm text-gray-500">{item.categoria}</p>
-              <p className="text-sm text-gray-500">Local: {item.local}</p>
-              <p className="text-sm text-gray-500 mb-2">Data: {new Date(item.data).toLocaleDateString()}</p>
-              {/* Removido o StatusBadge daqui, já que ele será exibido no ModalDetalhes */}
+              <p className="text-sm text-gray-500">
+                {item.item_categoria?.[0]?.categoria?.nome || 'Sem categoria'}
+              </p>
+              {item.data && (
+                <p className="text-sm text-gray-500 mb-2">
+                  Data: {new Date(item.data).toLocaleDateString()}
+                </p>
+              )}
             </div>
           </div>
         ))}
@@ -58,7 +61,6 @@ const ItensRecentes = () => {
         <button className="text-gray-500 text-sm hover:underline">Ver Mais +</button>
       </div>
 
-      {/* Exibindo o ModalDetalhes */}
       <ModalDetalhes item={selectedItem} onClose={closeModal} />
     </section>
   );
