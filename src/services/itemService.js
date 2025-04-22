@@ -1,50 +1,60 @@
-import axios from 'axios';
+import api from './api'; // Certifique-se de ter a instância do axios configurada em api.js
 
-// Cria uma instância do axios com a URL base da API
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // A URL base da API (que vem do arquivo .env)
-});
+const itemService = {
+  // Método para criar um novo item
+  async createItem(data) {
+    try {
+      const res = await api.post('/api/itens', data);
+      return res.data;
+    } catch (error) {
+      console.log("Error creating item", error);
+      throw error;
+    }
+  },
 
-// Função para pegar os itens
-export const getItens = async () => {
-  try {
-    const response = await api.get('/api/itens'); // Endpoint para pegar os itens
-    return response.data; // Retorna os dados da resposta
-  } catch (error) {
-    console.error("Erro ao buscar itens", error); // Log do erro
-    throw error; // Repassa o erro para quem chamou a função
-  }
+  // Método para listar os itens recentes
+  async getRecentItems() {
+    try {
+      const res = await api.get('/api/itens/recentes');
+      return res.data;
+    } catch (error) {
+      console.log("Error fetching recent items", error);
+      throw error;
+    }
+  },
+
+  // Método para buscar um item pelo ID
+  async getItemById(id) {
+    try {
+      const res = await api.get(`/api/itens/${id}`);
+      return res.data;
+    } catch (error) {
+      console.log("Error fetching item by ID", error);
+      throw error;
+    }
+  },
+
+  // Método para editar um item
+  async updateItem(id, data) {
+    try {
+      const res = await api.put(`/api/itens/${id}`, data);
+      return res.data;
+    } catch (error) {
+      console.log("Error updating item", error);
+      throw error;
+    }
+  },
+
+  // Método para excluir um item
+  async deleteItem(id) {
+    try {
+      const res = await api.delete(`/api/itens/${id}`);
+      return res.data;
+    } catch (error) {
+      console.log("Error deleting item", error);
+      throw error;
+    }
+  },
 };
 
-// Função para criar um item
-export const createItem = async (data) => {
-  try {
-    const response = await api.post('/api/itens/criar', data); // Endpoint para criar item
-    return response.data; // Retorna os dados da resposta
-  } catch (error) {
-    console.error("Erro ao criar item", error); // Log do erro
-    throw error; // Repassa o erro para quem chamou a função
-  }
-};
-
-// Função para editar um item
-export const updateItem = async (id, data) => {
-  try {
-    const response = await api.put(`/api/itens/editar/${id}`, data); // Endpoint para editar item
-    return response.data; // Retorna os dados da resposta
-  } catch (error) {
-    console.error(`Erro ao editar item com ID ${id}`, error); // Log do erro
-    throw error; // Repassa o erro para quem chamou a função
-  }
-};
-
-// Função para excluir um item
-export const deleteItem = async (id) => {
-  try {
-    const response = await api.delete(`/api/itens/deletar/${id}`); // Endpoint para excluir item
-    return response.data; // Retorna os dados da resposta
-  } catch (error) {
-    console.error(`Erro ao excluir item com ID ${id}`, error); // Log do erro
-    throw error; // Repassa o erro para quem chamou a função
-  }
-};
+export default itemService;
