@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../src/components/Header.jsx';
 import HeroSection from '../src/components/HeroSection.jsx';
-import ItensRecentes from '../src/components/ItensRecentes.jsx';
+import ItensRecentes from '../src/components/RecentItems.jsx';
 import Footer from '../src/components/Footer.jsx';
 
 const Home = () => {
