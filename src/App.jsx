@@ -1,10 +1,9 @@
-import LoginForm from "./pages/LoginUser"
-import RegisterForm from "./pages/RegisterUser"
+import Home from "./pages/Home"
 
 function App() {
   return (
     <>
-      <LoginForm />
+      <Home />
     </>
   )
 }
