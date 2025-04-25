@@ -6,10 +6,7 @@ export const login = async(data) =>{
         return res.data;
     
     }catch(error){
-        return {
-            success: false,
-            message: error.response?.data?.message || "Erro ao fazer login",
-            details: error.response?.data?.message || error.message
-        };
+        console.error("Error during login:", error);
+        throw error;
     }
 }

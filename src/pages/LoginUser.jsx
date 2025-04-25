@@ -9,8 +9,8 @@ import {Link, useNavigate} from "react-router-dom";
 export default function LoginUser() {
     // object to store user data
     const [user, setUser] = useState({
-        email: "",
-        password: "",
+        email: "teste@gmail",
+        password: "1234",
     });
 
     // state to store error messages
@@ -33,10 +33,15 @@ export default function LoginUser() {
                 senha: user.password
             }
 
+            
             const res = await login(data);
-            if(res.success !== true){
-                setError(res.message);
+            
+            // check if the response is ok
+            if(res.status === 200){
+                setError("Credenciais validas");
+                return;
             }
+
             // if the login is successful, sign in the user
             // and navigate to the home page
             sign(res);
@@ -61,7 +66,7 @@ export default function LoginUser() {
                         <h3 className="font-bold text-4xl md:text-left text-center">Login</h3>
                         <p className="text-[#8A8A8A] mt-1 text-[14px] md:text-left text-center">Bem-vindo de volta! Por favor, faça login na sua conta.</p>
 
-                        <form onSubmit={handleLogin} className="flex flex-col gap-2 mt-8">
+                        <form onSubmit={handleLogin} className="flex flex-col gap-2 mt-5">
                             {error && (
                                 <span className="text-red-500 text-sm">{error}</span>
                             )}

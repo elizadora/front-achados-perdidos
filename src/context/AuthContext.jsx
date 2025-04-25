@@ -10,7 +10,7 @@ const AuthProvider = ({children}) => {
     // function to sign in the user
     // and store the user id and token in local storage
     const sign = (data) => {
-        setUserId(data.id);
+        setUserId(data.data.id);
         setToken(data.token);
 
         localStorage.setItem("id", data.id);

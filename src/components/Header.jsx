@@ -6,7 +6,7 @@ const Header = () => {
 
   return (
     <header className="w-full border-b border-blue-500 px-6 py-4 flex items-center justify-between bg-white">
-      <h1 className="text-blue-700 text-xl font-bold">NomeApp</h1>
+      <h1 className="text-blue-700 text-xl font-bold">Três Pulinhos</h1>
 
       <div className="flex items-center space-x-6">
         {/* Campo de busca - visível sempre */}

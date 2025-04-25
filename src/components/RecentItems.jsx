@@ -30,7 +30,7 @@ const RecentItems = () => {
 
   return (
     <section className="px-6 py-10">
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Recent Items</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6">Itens Recentes</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* if items length is 0 show a message */}
         {items.length === 0 ? (

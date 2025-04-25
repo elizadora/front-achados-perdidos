@@ -13,9 +13,9 @@ const itemService = {
   },
 
   // Método para listar os itens recentes
-  async getRecentItems() {
+  async getAll() {
     try {
-      const res = await api.get('/api/itens/recentes');
+      const res = await api.get('/api/itens/');
       return res.data;
     } catch (error) {
       console.log("Error fetching recent items", error);
