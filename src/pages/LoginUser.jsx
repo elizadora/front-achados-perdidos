@@ -7,15 +7,19 @@ import {Link, useNavigate} from "react-router-dom";
 
 
 export default function LoginUser() {
-
+    // object to store user data
     const [user, setUser] = useState({
         email: "",
         password: "",
     });
 
+    // state to store error messages
     const [error, setError] = useState("");
 
-    // const {sign} = useContext(AuthContext);
+    // const to use the AuthContext 
+    const { sign } = useContext(AuthContext);
+
+    // const to navigate to another page
     const navigate = useNavigate();
 
 
@@ -33,9 +37,10 @@ export default function LoginUser() {
             if(res.success !== true){
                 setError(res.message);
             }
-
-            // sign(res);
-            // navigate("/home");
+            // if the login is successful, sign in the user
+            // and navigate to the home page
+            sign(res);
+            navigate("/principal");
 
             
         }catch(error){
