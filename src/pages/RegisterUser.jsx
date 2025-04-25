@@ -2,9 +2,10 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Paper } from "@mui/material";
 import { useState } from "react";
 import {createUser} from "../services/userService";
+import { Link } from "react-router-dom";
 
 
-export default function RegisterForm() {
+export default function RegisterUser() {
     // object to store user data
     const [user, setUser] = useState({
         name: "",
@@ -59,7 +60,7 @@ export default function RegisterForm() {
 
     return (
         <div className="flex justify-center items-center bg-[#f3f3f3] min-h-screen">
-            <Paper elevation={2} className="flex md:w-[50%] h-[90%] w-[80%] bg-[#FFF7F7] md:flex-row flex-col">
+            <Paper elevation={2} className="flex md:w-1/2 md:h-[90vh] h-[90%] w-[80%] bg-[#FFF7F7] md:flex-row flex-col">
                 <div className="background-user-forms flex-1/6 flex flex-col items-center text-white justify-center">
                     <MagnifyingGlassIcon className="md:w-1/2 w-1/4 p-3 md:p-0" />
                 </div>
@@ -109,7 +110,7 @@ export default function RegisterForm() {
 
 
                             <button type="submit" className="bg-[#0028DF] hover:bg-[#0024C9] text-white font-bold text-[14px] h-[40px] rounded-[4px] mt-5 cursor-pointer">Cadastre-se</button>
-                            <p className="text-[#8A8A8A] mt-1 text-[14px] md:mb-3 mb-9 md:text-left text-center">Já tem uma conta? <a href="/login" className="text-[#0028DF] font-bold">Faça login</a></p>
+                            <p className="text-[#8A8A8A] mt-1 text-[14px] md:mb-3 mb-9 md:text-left text-center">Já tem uma conta? <Link to="/login" className="text-[#0028DF] font-bold">Faça login</Link></p>
 
                         </form>
                     </div>

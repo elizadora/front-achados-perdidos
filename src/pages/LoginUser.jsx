@@ -3,10 +3,10 @@ import { Paper } from "@mui/material";
 import { useContext, useState } from "react";
 import { login } from "../services/loginService";
 import { AuthContext } from "../context/AuthContext";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
-export default function LoginForm() {
+export default function LoginUser() {
 
     const [user, setUser] = useState({
         email: "",
@@ -16,7 +16,7 @@ export default function LoginForm() {
     const [error, setError] = useState("");
 
     // const {sign} = useContext(AuthContext);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
     const handleLogin = async (e) => {
@@ -47,7 +47,7 @@ export default function LoginForm() {
 
     return (
         <div className="flex justify-center items-center bg-[#f3f3f3] min-h-screen">
-            <Paper elevation={2} className="flex md:w-[50%] md:h-[90vh] h-[90%] w-[80%] bg-[#FFF7F7] md:flex-row flex-col">
+            <Paper elevation={2} className="flex md:w-1/2 md:h-[90vh] h-[90%] w-[80%] bg-[#FFF7F7] md:flex-row flex-col">
                 <div className="background-user-forms flex-1/6 flex flex-col items-center text-white justify-center">
                     <MagnifyingGlassIcon className="md:w-1/2 w-1/4 p-3 md:p-0" />
                 </div>
@@ -75,7 +75,7 @@ export default function LoginForm() {
 
                             </div>
                             <button type="submit" className="bg-[#0028DF] hover:bg-[#0024C9] text-white font-bold text-[14px] h-[40px] rounded-[4px] mt-5 cursor-pointer">Login</button>
-                            <p className="text-[#8A8A8A] mt-1 text-[14px] md:mb-3 mb-9 md:text-left text-center">Usuário novo? <a href="/login" className="text-[#0028DF] font-bold">Cadastre-se</a></p>
+                            <p className="text-[#8A8A8A] mt-1 text-[14px] md:mb-0 mb-9 md:text-left text-center">Usuário novo? <Link to="/cadastro-usuario" className="text-[#0028DF] font-bold">Cadastre-se</Link></p>
 
                         </form>
                     </div>
