@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+.background-user-forms {
+    background-image: url('assets/background-forms-user.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

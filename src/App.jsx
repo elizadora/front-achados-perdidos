@@ -1,20 +1,13 @@
-import React from 'react';
-import Header from '../src/components/Header.jsx';
-import HeroSection from '../src/components/HeroSection.jsx';
-import ItensRecentes from '../src/components/RecentItems.jsx';
-import Footer from '../src/components/Footer.jsx';
+import { BrowserRouter } from "react-router-dom"
+import AppRoutes from "./routes/routes";
 
-const Home = () => {
+
+function App() {
   return (
-    <main className="min-h-screen flex flex-col justify-between bg-white">
-      <Header />
-      <div>
-        <HeroSection />
-        <ItensRecentes />
-      </div>
-      <Footer />
-    </main>
-  );
-};
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  )
+}
 
-export default Home;
+export default App
