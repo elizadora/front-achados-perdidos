@@ -9,8 +9,8 @@ import {Link, useNavigate} from "react-router-dom";
 export default function LoginUser() {
     // object to store user data
     const [user, setUser] = useState({
-        email: "teste@gmail",
-        password: "1234",
+        email: "",
+        password: "",
     });
 
     // state to store error messages

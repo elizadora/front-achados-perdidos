@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Paper } from "@mui/material";
 import { useState } from "react";
 import {createUser} from "../services/userService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function RegisterUser() {
@@ -17,6 +17,8 @@ export default function RegisterUser() {
 
     // state to store error messages
     const [errorPassword, setErrorPassword] = useState("");
+
+    const navigate = useNavigate();
 
 
     // function to handle form submission
@@ -39,6 +41,9 @@ export default function RegisterUser() {
             const result =  await createUser(data);
             
             alert(result.message);
+            
+            // send user to login page
+            navigate("/login");
 
             // clean form
             setUser({
