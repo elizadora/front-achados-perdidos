@@ -55,7 +55,7 @@ export default function RegisterUser() {
             });
             setErrorPassword("");
         
-        }catch(errpr){
+        }catch(error){
             console.log("Erro ao salvar usuário");
         }
 

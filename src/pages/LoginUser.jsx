@@ -36,12 +36,6 @@ export default function LoginUser() {
             
             const res = await login(data);
             
-            // check if the response is ok
-            if(res.status === 200){
-                setError("Credenciais validas");
-                return;
-            }
-
             // if the login is successful, sign in the user
             // and navigate to the home page
             sign(res);
