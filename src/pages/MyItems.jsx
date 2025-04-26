@@ -8,8 +8,10 @@ import { getUserItems } from "../services/itemService";
 import { useEffect, useState } from "react";
 
 export default function MyItems() {
+    // object to store items
     const [items, setItems] = useState([]);
 
+    // object to store selected item, modal state and item id
     const [selectedItem, setSelectedItem] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [itemId, setItemId] = useState(null);
@@ -22,6 +24,7 @@ export default function MyItems() {
         setSelectedItem(null);
     };
 
+    // function to fetch items from the API and set the items state
     const fetchItems = async () => {
         try {
             const res = await getUserItems();
@@ -31,6 +34,8 @@ export default function MyItems() {
         }
     }
 
+    // useEffect to fetch items when the component mounts
+    // and when the item is saved
     useEffect(() => {
         fetchItems();
     }

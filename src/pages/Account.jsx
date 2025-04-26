@@ -5,9 +5,11 @@ import DialogMessage from "../components/DialogMessage";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 
 import { Paper } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { getUserById, updateUser } from "../services/userService";
+import { getUserById, updateUser, deleteUser } from "../services/userService";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
     // object to store user data
@@ -25,6 +27,9 @@ export default function Account() {
         open: false,
         onConfirm: () => { },
     });
+
+    const { logout } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     // function to get user data by id
     const getUserDetails = async () => {
@@ -46,6 +51,7 @@ export default function Account() {
     }
 
 
+    // function to call the dialog to edit the user
     const handleEdit = async (e) => {
         e.preventDefault();
 
@@ -58,6 +64,7 @@ export default function Account() {
 
     }
 
+    // function confirm the edit of the user
     const handleSaveEdit = async () => {
         setDialogConfig({ ...dialogConfig, open: false });
 
@@ -74,6 +81,33 @@ export default function Account() {
             alert("Usuário atualizado com sucesso");
         } catch (error) {
             console.log("Erro ao atualizar usuário", error);
+        }
+    }
+
+    // function to call the dialog to delete the user
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        setDialogConfig({
+            title: "Atenção",
+            message: "Você tem certeza que deseja excluir sua conta? Todos os seus itens serão excluídos também.",
+            open: true,
+            onConfirm: handleDeleteAccount,
+        });
+    }
+
+    // function confirm the delete of the user
+    const handleDeleteAccount = async () => {
+        setDialogConfig({ ...dialogConfig, open: false });
+
+        try {
+            await deleteUser();
+
+            alert("Usuário excluído com sucesso");
+            logout();
+            navigate("/");
+            
+        } catch (error) {
+            console.log("Erro ao excluir usuário", error);
         }
     }
 
@@ -147,6 +181,7 @@ export default function Account() {
                             </div>
                         </div>
                         <button type="submit" className="bg-[#0028DF] hover:bg-[#0024C9] text-white font-bold text-[14px] h-[40px] rounded-[4px] mt-5 cursor-pointer">Salvar</button>
+                        <button onClick={handleDelete} type="button" className="bg-[#FF0000] hover:bg-[#C90000] text-white font-bold text-[14px] h-[40px] rounded-[4px] cursor-pointer">Apagar conta</button>
                     </form>
                 </Paper>
             </div>
