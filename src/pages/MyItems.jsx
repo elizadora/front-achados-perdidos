@@ -43,9 +43,9 @@ export default function MyItems() {
             <div className="flex flex-col items-center justify-center py-10">
                 <h1 className="text-2xl font-bold text-gray-900 mb-4">Meus Itens</h1>
                 <p className="text-gray-600">Aqui estão os itens que você adicionou.</p>
-                <button 
-                onClick={() => setShowModal(true)}
-                className="cursor-pointer mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md hover:bg-blue-700 transition">Cadastrar Item</button>
+                <button
+                    onClick={() => setShowModal(true)}
+                    className="cursor-pointer mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md hover:bg-blue-700 transition">Cadastrar Item</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-20">
                 {items.length === 0 ? (
@@ -62,6 +62,7 @@ export default function MyItems() {
                                 setShowModal(true);
                             }}
                             onOpenModal={openModal}
+                            showEditButton={true}
                         />
                     ))
                 )}
