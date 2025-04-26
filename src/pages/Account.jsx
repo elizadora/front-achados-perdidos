@@ -1,6 +1,8 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { UserCircleIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import DialogMessage from "../components/DialogMessage";
+
+import { UserCircleIcon } from "@heroicons/react/20/solid";
 
 import { Paper } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -16,16 +18,17 @@ export default function Account() {
         password: "",
     })
 
-    // state to store edit mode
-    const [editMode, setEditMode] = useState({
-        name: true,
-        phone: true,
-        password: true,
+    // object to store dialog data
+    const [dialogConfig, setDialogConfig] = useState({
+        title: "",
+        message: "",
+        open: false,
+        onConfirm: () => { },
     });
 
     // function to get user data by id
     const getUserDetails = async () => {
-        try{
+        try {
             const userId = localStorage.getItem("id");
 
             const res = await getUserById(userId);
@@ -36,7 +39,7 @@ export default function Account() {
                 phone: res.data.telefone,
                 password: "********",
             });
-        }catch(error){
+        } catch (error) {
             console.log("Erro ao buscar usuário", error);
 
         }
@@ -46,11 +49,19 @@ export default function Account() {
     const handleEdit = async (e) => {
         e.preventDefault();
 
-        // call the updateUser function to update the user data
-        // and set the edit mode to false
-        try{
+        setDialogConfig({
+            title: "Atenção",
+            message: "Você tem certeza que deseja atualizar os dados?",
+            open: true,
+            onConfirm: handleSaveEdit,
+        });
 
+    }
 
+    const handleSaveEdit = async () => {
+        setDialogConfig({ ...dialogConfig, open: false });
+
+        try {
             const data = {
                 nome: user.name,
                 email: user.email,
@@ -59,19 +70,13 @@ export default function Account() {
             }
 
             await updateUser(data);
-            setEditMode({
-                name: true,
-                phone: true,
-                password: true,
-            });
-
-
 
             alert("Usuário atualizado com sucesso");
-        }catch(error){
+        } catch (error) {
             console.log("Erro ao atualizar usuário", error);
         }
     }
+
 
     // useEffect load when the component is mounted
     // and set the user data to the state
@@ -96,16 +101,11 @@ export default function Account() {
                             <div className="flex items-center gap-3">
                                 <input
                                     type="text"
-                                    className={`w-full h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1
-                                        ${editMode.name ? "bg-[#E5E5E5]" : ""}`
-                                    }
+                                    className="w-full h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1"
                                     required
                                     onChange={(e) => setUser({ ...user, name: e.target.value })}
-                                    disabled={editMode.name}
                                     value={user.name}
-                                    autoFocus={true}
                                 />
-                                <PencilSquareIcon className="w-[30px] h-[30px] text-[#0028DF] cursor-pointer" onClick={() => setEditMode({...editMode, name: !editMode.name})}/>
                             </div>
                         </div>
                         <div className="flex flex-col">
@@ -113,7 +113,7 @@ export default function Account() {
                             <div className="flex items-center gap-3">
                                 <input
                                     type="gmail"
-                                    className="w-[90%] h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1 bg-[#E5E5E5]"
+                                    className="w-full h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1 bg-[#E5E5E5]"
                                     required
                                     disabled
                                     value={user.email}
@@ -126,16 +126,11 @@ export default function Account() {
                             <div className="flex items-center gap-3">
                                 <input
                                     type="text"
-                                    className={`w-full h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1
-                                        ${editMode.phone ? "bg-[#E5E5E5]" : ""}`
-                                    }
+                                    className="w-full h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1"
                                     required
                                     onChange={(e) => setUser({ ...user, phone: e.target.value })}
-                                    disabled={editMode.phone}
                                     value={user.phone}
-                                    autoFocus={editMode.phone}
                                 />
-                                <PencilSquareIcon className="w-[30px] h-[30px] text-[#0028DF] cursor-pointer" onClick={() => setEditMode({...editMode, phone: !editMode.phone})}  />
                             </div>
                         </div>
 
@@ -144,15 +139,11 @@ export default function Account() {
                             <div className="flex items-center gap-3">
                                 <input
                                     type="password"
-                                    className={`w-full h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1
-                                        ${editMode.password ? "bg-[#E5E5E5]" : ""}`
-                                    }
+                                    className="w-full h-[30px] border border-[#979595] rounded-[4px] px-2 mt-1"
                                     required
                                     onChange={(e) => setUser({ ...user, password: e.target.value })}
-                                    disabled={editMode.password}
                                     value={user.password}
                                 />
-                                <PencilSquareIcon className="w-[30px] h-[30px] text-[#0028DF] cursor-pointer"  onClick={() => setEditMode({...editMode, password: !editMode.password})}/>
                             </div>
                         </div>
                         <button type="submit" className="bg-[#0028DF] hover:bg-[#0024C9] text-white font-bold text-[14px] h-[40px] rounded-[4px] mt-5 cursor-pointer">Salvar</button>
@@ -160,6 +151,13 @@ export default function Account() {
                 </Paper>
             </div>
             <Footer />
+            <DialogMessage
+                title={dialogConfig.title}
+                message={dialogConfig.message}
+                open={dialogConfig.open}
+                onClose={() => setDialogConfig({ ...dialogConfig, open: false })}
+                onConfirm={dialogConfig.onConfirm}
+            />
         </main>
     );
 }
