@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { logout } = useContext(AuthContext);
 
+  const navigate = useParams();
 
   const navLinks = [
     { name: 'Início', path: '/principal' },
@@ -14,13 +15,10 @@ const Header = () => {
     { name: 'Conta', path: '/conta' }
   ];
 
-
   const handleLogout = async () => {
     logout();
     navigate('/');
   }
-
-
 
   return (
     <header className="w-full border-b border-blue-500 px-6 py-4 flex items-center justify-between bg-white">
