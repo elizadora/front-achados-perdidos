@@ -1,5 +1,4 @@
-import api from "./axiosConfig"; // Certifique-se de ter a instância do axios configurada em api.js
-import api from "./axiosConfig"; // Certifique-se de ter a instância do axios configurada em api.js
+import api from "./axiosConfig";
 
 const itemService = {
   // Método para criar um novo item
@@ -14,7 +13,6 @@ const itemService = {
   },
 
   // Método para listar os itens recentes
-  async getAll() {
   async getAll() {
     try {
       const res = await api.get('itens/');
