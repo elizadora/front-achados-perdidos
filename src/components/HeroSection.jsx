@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ilustracao from '../assets/images/ilustracaoHeroSection.png'; 
-import ModalCadastro from './ModalCadastro'; // <-- vamos criar esse componente
+import ilustracao from '../assets/images/ilustracaoHeroSection.png';
+import ItemModal from './ItemModal';
 
-const HeroSection = () => {
+const HeroSection = ({ onItemSaved }) => {
   const [mostrarModal, setMostrarModal] = useState(false);
 
   return (
@@ -22,14 +22,18 @@ const HeroSection = () => {
           <p className="text-gray-500 mt-2">Reencontros começam aqui.</p>
           <button
             onClick={() => setMostrarModal(true)}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md cursor-pointer hover:bg-blue-700 transition"
+            className="cursor-pointer mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md hover:bg-blue-700 transition"
           >
             Cadastrar item
           </button>
         </div>
       </section>
 
-      {mostrarModal && <ModalCadastro onClose={() => setMostrarModal(false)} />}
+      <ItemModal
+        open={mostrarModal}
+        onClose={() => setMostrarModal(false)}
+        onItemSaved={onItemSaved}
+      />
     </>
   );
 };
