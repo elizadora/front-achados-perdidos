@@ -13,7 +13,7 @@ const AuthProvider = ({children}) => {
         setUserId(data.data.id);
         setToken(data.token);
 
-        localStorage.setItem("id", data.id);
+        localStorage.setItem("id", data.data.id);
         localStorage.setItem("token", data.token);
     }
 

@@ -1,8 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { logout } = useContext(AuthContext);
+
+
+  const navLinks = [
+    { name: 'Início', path: '/principal' },
+    { name: 'Meus itens', path: '/meus-itens' },
+    { name: 'Conta', path: '/conta' }
+  ];
+
+
+  const handleLogout = async () => {
+    logout();
+    navigate('/');
+  }
+
+
 
   return (
     <header className="w-full border-b border-blue-500 px-6 py-4 flex items-center justify-between bg-white">
@@ -21,8 +39,15 @@ const Header = () => {
 
         {/* Navegação em telas maiores */}
         <nav className="hidden sm:flex space-x-4 text-sm font-medium">
-          <a href="#" className="text-black underline underline-offset-4">Início</a>
-          <a href="#" className="text-black hover:underline">Meus itens</a>
+          {navLinks.map((link) => (
+            <Link key={link.path} to={link.path}
+              className={`text-black  ${link.path === window.location.pathname ? 'underline underline-offset-4' : 'hover:underline hover:underline-offset-4'}`}>
+              {link.name}
+            </Link>
+          ))}
+          <button onClick={handleLogout} className="bg-blue-600 text-white px-4 py-0.5 rounded-full hover:bg-blue-700 transition duration-300 cursor-pointer" >
+            Sair
+          </button>
         </nav>
 
         {/* Menu hambúrguer em telas pequenas */}
@@ -36,8 +61,18 @@ const Header = () => {
       {/* Menu dropdown mobile */}
       {menuOpen && (
         <div className="absolute top-16 right-6 bg-white border border-gray-200 rounded-lg shadow-lg sm:hidden z-50 p-4 space-y-2">
-          <a href="#" className="block text-black hover:underline">Início</a>
-          <a href="#" className="block text-black hover:underline">Meus itens</a>
+          {navLinks.map((link) => (
+            <Link key={link.path} to={link.path}
+              className={`block text-black ${link.path === window.location.pathname ? 'underline underline-offset-4' : ':hover:underline'}`}>
+              {link.name}
+            </Link>
+          ))}
+
+          <button className="bg-blue-600 text-white px-4 py-0.5 rounded-full hover:bg-blue-700 transition duration-300 cursor-pointer" onClick={logout}>
+            Sair
+          </button>
+
+          {/* Campo de busca - visível no menu dropdown */}
           <div className="relative mt-2">
             <input
               type="text"
