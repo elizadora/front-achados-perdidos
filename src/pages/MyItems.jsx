@@ -69,7 +69,7 @@ export default function MyItems() {
             </div>
             <Footer />
 
-            <ModalDetails item={selectedItem} onClose={closeModal} />
+            <ModalDetails item={selectedItem} onClose={closeModal} isOwner={true} />
             <ItemModal
                 open={showModal}
                 onClose={() => setShowModal(false)}

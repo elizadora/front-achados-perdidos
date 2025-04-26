@@ -57,7 +57,7 @@ const Footer = () => {
           </div>
 
           <p className="text-xs text-gray-200 mt-4 text-center">
-            © 2025 Achados & Perdidos. Todos os direitos reservados.
+            © 2025 Três Pulinhos - Achados & Perdidos. Todos os direitos reservados.
           </p>
         </div>
       </div>
