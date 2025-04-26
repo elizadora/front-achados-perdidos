@@ -1,7 +1,8 @@
 import {Route} from "react-router-dom";
 import LoginUser from "../pages/LoginUser";
 import RegisterUser from "../pages/RegisterUser";
-import Main from "../pages/Main";
+import Main from "../pages/MainPage";
+import Account from "../pages/Account";
 
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -18,6 +19,8 @@ const userRoutes = () => {
             <Route path="/login" element={<LoginUser />} />
             <Route path="/cadastro-usuario" element={<RegisterUser />} />
             <Route path="/principal" element={<AuthRoute component={Main}/>} />
+            <Route path="/conta" element={<AuthRoute component={Account}/>} />
+
         </>
     )
 }

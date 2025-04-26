@@ -71,7 +71,7 @@ const RecentItems = () => {
 
       <div className="text-center mt-6">
         <button className="text-gray-500 text-sm hover:underline cursor-pointer">
-          View More +
+          Ver mais +
         </button>
       </div>
 
