@@ -22,7 +22,7 @@ const HeroSection = () => {
           <p className="text-gray-500 mt-2">Reencontros começam aqui.</p>
           <button
             onClick={() => setMostrarModal(true)}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md hover:bg-blue-700 transition"
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md cursor-pointer hover:bg-blue-700 transition"
           >
             Cadastrar item
           </button>

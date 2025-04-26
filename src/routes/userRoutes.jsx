@@ -1,7 +1,7 @@
 import {Route} from "react-router-dom";
 import LoginUser from "../pages/LoginUser";
 import RegisterUser from "../pages/RegisterUser";
-import Main from "../pages/Main";
+import Main from "../pages/MainPage";
 import Account from "../pages/Account";
 
 import { useContext } from "react";
