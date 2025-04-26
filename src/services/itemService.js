@@ -4,7 +4,7 @@ const itemService = {
   // Método para criar um novo item
   async createItem(data) {
     try {
-      const res = await api.post('/api/itens', data);
+      const res = await api.post('itens/', data);
       return res.data;
     } catch (error) {
       console.log("Error creating item", error);
@@ -15,7 +15,7 @@ const itemService = {
   // Método para listar os itens recentes
   async getAll() {
     try {
-      const res = await api.get('/api/itens/');
+      const res = await api.get('itens/');
       return res.data;
     } catch (error) {
       console.log("Error fetching recent items", error);
@@ -26,7 +26,7 @@ const itemService = {
   // Método para buscar um item pelo ID
   async getItemById(id) {
     try {
-      const res = await api.get(`/api/itens/${id}`);
+      const res = await api.get(`/itens/${id}`);
       return res.data;
     } catch (error) {
       console.log("Error fetching item by ID", error);
@@ -37,7 +37,7 @@ const itemService = {
   // Método para editar um item
   async updateItem(id, data) {
     try {
-      const res = await api.put(`/api/itens/${id}`, data);
+      const res = await api.put(`itens/${id}`, data);
       return res.data;
     } catch (error) {
       console.log("Error updating item", error);
@@ -48,7 +48,7 @@ const itemService = {
   // Método para excluir um item
   async deleteItem(id) {
     try {
-      const res = await api.delete(`/api/itens/${id}`);
+      const res = await api.delete(`itens/${id}`);
       return res.data;
     } catch (error) {
       console.log("Error deleting item", error);

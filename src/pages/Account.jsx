@@ -84,11 +84,11 @@ export default function Account() {
             <Header />
             <div className="flex flex-col items-center justify-cener">
                 <Paper elevation={2} sx={{ backgroundColor: "#F3F3F3" }} className="flex w-full md:max-w-1/3  max-w-[90%] flex-col m-10 p-5">
-                    <div className="flex flex-col items-start justify-center">
-                        <p className="text-black font-bold text-2xl">Minha Conta</p>
-                    </div>
                     <div className="flex flex-col items-center justify-center   ">
                         <UserCircleIcon className="w-36 h-36 text-[#CCCCCC] mt-5" />
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                        <p className="text-black font-medium text-2xl">Minha Conta</p>
                     </div>
                     <form onSubmit={handleEdit} className="flex flex-col gap-3 mt-8 md:w-[100%] w-full">
                         <div className="flex flex-col">
