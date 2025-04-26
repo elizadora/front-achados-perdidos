@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ilustracao from '../assets/imagens/ilustracaoHeroSection.png'; 
+import ilustracao from '../assets/images/ilustracaoHeroSection.png'; 
 import ModalCadastro from './ModalCadastro'; // <-- vamos criar esse componente
 
 const HeroSection = () => {

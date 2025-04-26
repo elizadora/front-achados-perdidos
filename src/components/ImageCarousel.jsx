@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import img1 from '../assets/imagens/banner-1.png';
-import img2 from '../assets/imagens/banner-3.png';
-import img3 from '../assets/imagens/banner-2.jpg';
-import iconeMapa from '../assets/imagens/mapa_icon.png';
+import img1 from '../assets/images/banner-1.png';
+import img2 from '../assets/images/banner-3.png';
+import img3 from '../assets/images/banner-2.jpg';
+import iconeMapa from '../assets/images/mapa_icon.png';
 
 const imagens = [img1, img2, img3];
 
