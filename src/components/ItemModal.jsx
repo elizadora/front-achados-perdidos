@@ -86,6 +86,7 @@ export default function ItemModal({ open, onClose, itemIdFromProps, onItemSaved 
     setFoto("");
     setStatus(0);
     setCategoriaId(1);
+    setItemId(null);
     removeImage();
   };
 

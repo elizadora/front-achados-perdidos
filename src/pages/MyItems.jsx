@@ -52,7 +52,10 @@ export default function MyItems() {
                 <h1 className="text-2xl font-bold text-gray-900 mb-4">Meus Itens</h1>
                 <p className="text-gray-600">Aqui estão os itens que você adicionou.</p>
                 <button
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {
+                        setItemId(null);
+                        setShowModal(true);
+                    }}
                     className="cursor-pointer mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md hover:bg-blue-700 transition">Cadastrar Item</button>
             </div>
 
@@ -90,7 +93,10 @@ export default function MyItems() {
             <ModalDetails item={selectedItem} onClose={closeModal} isOwner={true} />
             <ItemModal
                 open={showModal}
-                onClose={() => setShowModal(false)}
+                onClose={() => {
+                    setShowModal(false);
+                    setItemId(null);
+                }}
                 itemIdFromProps={itemId}
                 onItemSaved={fetchItems}
             />
