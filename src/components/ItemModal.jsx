@@ -98,6 +98,7 @@ export default function ItemModal({ open, onClose, itemIdFromProps, onItemSaved 
     try {
       if (itemId) {
         await updateItem(itemIdFromProps, data_entry);
+        setItemId(false);
       } else {
         await createItem(data_entry);
       }
