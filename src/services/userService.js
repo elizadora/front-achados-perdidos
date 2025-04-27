@@ -1,9 +1,9 @@
 import api from './axiosConfig';
 
-// Function to create a new user
+// function to create a new user
 export const createUser = async (data) => {
     try{
-        // Send a POST request to the API to create a new user
+        // send a POST request to the API to create a new user
         const res = await api.post('/usuarios/criar/', data);
         return res.data;
     
@@ -13,10 +13,10 @@ export const createUser = async (data) => {
     }
 };
 
-// Function to get user details by ID
+// function to get user details by ID
 export const getUserById = async (id) => {
     try{
-        // Send a GET request to the API to get user details by ID
+        // send a GET request to the API to get user details by ID
         const res = await api.get(`/usuarios/${id}`);
         return res.data;
     
@@ -26,10 +26,10 @@ export const getUserById = async (id) => {
     }
 }
 
-// Function to update user data
+// function to update user data
 export const updateUser = async (data) => {
     try{
-        // Send a PUT request to the API to update user data
+        // send a PUT request to the API to update user data
         const res = await api.put('/usuarios/atualizar/', data, {
             headers: {
                 'authorization': `Bearer ${localStorage.getItem("token")}`
@@ -45,5 +45,42 @@ export const updateUser = async (data) => {
 }
 
 
+// function to delete a user
+export const deleteUser = async () => {
+    try{
+        // send a DELETE request to the API to delete a user
+        // first delete the items 
+        const myItems = await api.get('/itens/conta/meus-itens/', {
+            headers: { 
+                'authorization' : `Bearer ${localStorage.getItem("token")}`
+            }
+        });
 
+        const items = myItems.data.data;
+        console.log("Itens do usuário", items);
+
+        // loop to delete all items by user 
+        for (const item of items) {
+            console.log("Deletando item", item);
+            await api.delete(`/itens/deletar/${item.id}`, {
+                headers: {
+                    'authorization' : `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+        }
+
+        // then delete the user
+        const res = await api.delete('/usuarios/deletar/', {
+            headers: {
+                'authorization' : `Bearer ${localStorage.getItem("token")}`
+            }
+        });
+
+        return res.data;
+    
+    }catch(error){
+        console.log("Erro ao deletar usuário", error);
+        throw error;
+    }
+}
 
