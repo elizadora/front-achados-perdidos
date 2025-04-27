@@ -4,9 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import DialogMessage from './DialogMessage';
 
-
-import { useNavigate } from 'react-router-dom';
-
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { logout } = useContext(AuthContext);
