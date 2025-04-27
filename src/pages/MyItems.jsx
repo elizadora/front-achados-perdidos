@@ -3,9 +3,10 @@ import Header from "../components/Header";
 import ModalDetails from '../components/ModalDetails';
 import ItemModal from "../components/ItemModal";
 import ItemCard from "../components/ItemCard";
+import DeleteItemModal from "../components/DeleteItemModal";
 import { getUserItems } from "../services/itemService";
-
 import { useEffect, useState } from "react";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function MyItems() {
     // object to store items
@@ -15,6 +16,8 @@ export default function MyItems() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [itemId, setItemId] = useState(null);
+    const [deleteItemId, setDeleteItemId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const openModal = (item) => {
         setSelectedItem(item);
@@ -31,6 +34,8 @@ export default function MyItems() {
             setItems(res.data);
         } catch (error) {
             console.error("Erro ao buscar itens:", error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -38,9 +43,7 @@ export default function MyItems() {
     // and when the item is saved
     useEffect(() => {
         fetchItems();
-    }
-        , []);
-
+    }, []);
 
     return (
         <main className="min-h-screen flex flex-col justify-between bg-white">
@@ -52,26 +55,36 @@ export default function MyItems() {
                     onClick={() => setShowModal(true)}
                     className="cursor-pointer mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow-md hover:bg-blue-700 transition">Cadastrar Item</button>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-20">
-                {items.length === 0 ? (
-                    <div className="col-span-4 text-center">
-                        <p className="text-gray-500">Nenhum item recente encontrado</p>
-                    </div>
-                ) : (
-                    items.map((item, index) => (
-                        <ItemCard
-                            key={index}
-                            item={item}
-                            onEditClick={(id) => {
-                                setItemId(id);
-                                setShowModal(true);
-                            }}
-                            onOpenModal={openModal}
-                            showEditButton={true}
-                        />
-                    ))
-                )}
-            </div>
+
+            {isLoading ? (
+                <div className="flex justify-center items-center h-1/2">
+                    <CircularProgress />
+                </div>
+            ) : (
+                < div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+                    {items.length === 0 ? (
+                        <div className="col-span-4 text-center">
+                            <p className="text-gray-500">Nenhum item recente encontrado</p>
+                        </div>
+                    ) : (
+                        items.map((item, index) => (
+                            <ItemCard
+                                key={index}
+                                item={item}
+                                onEditClick={(id) => {
+                                    setItemId(id);
+                                    setShowModal(true);
+                                }}
+                                onOpenModal={openModal}
+                                onDeleteClick={(id) => {
+                                    setDeleteItemId(id);
+                                }}
+                                showEditButton={true}
+                            />
+                        ))
+                    )}
+                </div>
+            )}
             <Footer />
 
             <ModalDetails item={selectedItem} onClose={closeModal} isOwner={true} />
@@ -81,6 +94,15 @@ export default function MyItems() {
                 itemIdFromProps={itemId}
                 onItemSaved={fetchItems}
             />
-        </main>
+            {
+                deleteItemId && (
+                    <DeleteItemModal
+                        onClose={() => setDeleteItemId(null)}
+                        itemIdFromProps={deleteItemId}
+                        onItemSaved={fetchItems}
+                    />
+                )
+            }
+        </main >
     )
 }

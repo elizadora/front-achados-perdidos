@@ -117,7 +117,7 @@ export default function ItemModal({ open, onClose, itemIdFromProps, onItemSaved 
       onItemSaved={onItemSaved}
     >
       <Box
-        className="w-[90%] md:w-[80%] lg:w-[42%] overflow-y-auto md 
+        className="w-[90%] md:w-[60%] lg:w-[38%] overflow-y-auto md 
         max-h-[90vh] !p-8 rounded-md bg-white !relative"
         sx={{
           boxShadow: 24,
@@ -133,7 +133,7 @@ export default function ItemModal({ open, onClose, itemIdFromProps, onItemSaved 
 
 
         <Typography
-          className="font-bold !text-3xl md:!text-4xl"
+          className="font-bold !text-2xl md:!text-3xl"
         >
           {itemId ? "Editar Item" : "Cadastrar Item"}
         </Typography>

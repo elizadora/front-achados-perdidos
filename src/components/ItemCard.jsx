@@ -1,12 +1,38 @@
-import React from 'react';
-import Chip from '@mui/material/Chip';
+import React, { useState } from 'react';
+import { MenuItem, IconButton, Menu, Chip } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { EditOutlined, DeleteOutlined } from '@mui/icons-material';
 import no_image from '../assets/images/no_image.png';
 
 const translateStatus = (status) => {
   return status == 0 ? 'Achado' : 'Perdido';
 };
 
-const ItemCard = ({ item, onOpenModal, onEditClick, showEditButton = false }) => {
+const ItemCard = ({ item, onOpenModal, onEditClick, onDeleteClick, showEditButton = false }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = (event) => {
+    event?.stopPropagation();
+    setAnchorEl(null);
+  };
+
+  const handleEdit = (event) => {
+    event.stopPropagation();
+    onEditClick(item.id);
+    handleMenuClose();
+  };
+
+  const handleDelete = (event) => {
+    event.stopPropagation();
+    onDeleteClick(item.id);
+    handleMenuClose();
+  };
+
   return (
     <div
       className="min-h-[20vh] flex flex-col relative bg-white rounded-lg shadow-sm border
@@ -37,23 +63,39 @@ const ItemCard = ({ item, onOpenModal, onEditClick, showEditButton = false }) =>
 
         <div className={`flex items-center mt-4 ${showEditButton ? 'justify-between' : 'justify-end'}`}>
           <Chip variant="outlined" label={translateStatus(item.status)} />
+
           {showEditButton && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditClick(item.id);
-              }}
-              className="cursor-pointer ml-2 text-[#0028DF] hover:underline text-sm"
-            >
-              Editar
-            </button>
+            <div>
+              <IconButton
+                size="small"
+                onClick={handleMenuOpen}
+                className="!text-gray-800"
+              >
+                <MoreVertIcon fontSize="small" />
+              </IconButton>
+
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <MenuItem onClick={handleEdit}><EditOutlined className="mr-2"/>Editar</MenuItem>
+                <MenuItem onClick={handleDelete}> <DeleteOutlined  className="mr-2"/>Excluir</MenuItem>
+              </Menu>
+            </div>
           )}
         </div>
-
       </div>
     </div>
   );
 };
-
 
 export default ItemCard;

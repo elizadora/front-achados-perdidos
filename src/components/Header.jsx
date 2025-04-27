@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import DialogMessage from './DialogMessage';
 
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { logout } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const [dialogConfig, setDialogConfig] = useState({
@@ -18,8 +19,6 @@ const Header = () => {
     open: false,
     onConfirm: () => { },
   });
-
-
 
   const navLinks = [
     { name: 'Início', path: '/principal' },
@@ -37,7 +36,7 @@ const Header = () => {
   }
   
   const handleLogout = async () => {
-    logout();
+    await logout();
     navigate('/');
   }
 
