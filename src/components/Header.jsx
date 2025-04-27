@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
-import { Link, useParams } from 'react-router-dom';
+import { FiMenu, FiX } from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import DialogMessage from './DialogMessage';
 
