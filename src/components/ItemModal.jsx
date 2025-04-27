@@ -107,6 +107,9 @@ export default function ItemModal({ open, onClose, itemIdFromProps, onItemSaved 
 
     } catch (error) {
       console.error("Erro ao salvar item: ", error);
+      if (error.message.includes('Tamanho')) {
+        setFoto(null);
+      }
     }
   };
 

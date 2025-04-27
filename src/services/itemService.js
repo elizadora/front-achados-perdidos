@@ -1,4 +1,5 @@
 import api from "./axiosConfig";
+import { handleApiError } from "../utils/handleApiError";
 
 // Criar item (requer auth)
 export const createItem = async (data) => {
@@ -10,8 +11,7 @@ export const createItem = async (data) => {
         });
         return res.data;
     } catch (error) {
-        console.error("Erro ao criar item:", error);
-        throw error;
+        handleApiError(error);
     }
   };
 
@@ -25,8 +25,7 @@ export const updateItem = async (id, data) => {
         });
         return res.data;
     } catch (error) {
-        console.error("Erro ao atualizar item:", error);
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -36,8 +35,7 @@ export const getAllItems = async () => {
         const res = await api.get("/itens");
         return res.data;
     } catch (error) {
-        console.error("Erro ao buscar itens:", error);
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -49,8 +47,7 @@ export const getItemById = async (id) => {
         return res.data;
         
     } catch (error) {
-        console.error("Erro ao buscar item:", error);
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -64,8 +61,7 @@ export const deleteItem = async (id) => {
         });
         return res.status === 204;
     } catch (error) {
-        console.error("Erro ao deletar item:", error);
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -79,7 +75,6 @@ export const getUserItems = async () => {
         });
         return res.data;
     } catch (error) {
-        console.error("Erro ao buscar itens do usuário:", error);
-        throw error;
+        handleApiError(error);
     }
 };
